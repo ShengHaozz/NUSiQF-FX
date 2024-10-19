@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 def mr1_alpha_gen(input_df: pd.DataFrame, lag_days: int) -> pd.DataFrame:
-    # alpha = -(close(today) - close(5_days_ago))/close(5_days_ago)
+    # alpha = -(close(today) - close(X_days_ago))/close(X_days_ago)
     # first column is datetime (index)
     # subsequent columns are values
 
@@ -11,8 +11,6 @@ def mr1_alpha_gen(input_df: pd.DataFrame, lag_days: int) -> pd.DataFrame:
     new_df = -new_df.iloc[lag_days:]
 
     return new_df
-    
-
     
 
 

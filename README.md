@@ -3,7 +3,7 @@
 0. API calls
 
 1. Alpha function
-Generate Alpha values
+Mean Reversion 1: -(close(today) - close(X_days_ago)) / close(X_days_ago)
 
 2. Alpha to asset allocation
 Allocation function
