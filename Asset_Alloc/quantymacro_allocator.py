@@ -3,7 +3,7 @@ import numpy as np
 
 # quantymacro allocator
 
-def allocator_1(df: pd.DataFrame, weights: pd.DataFrame = None, group: dict = None) -> pd.DataFrame:
+def quantymacro_allocator(alpha_df: pd.DataFrame, weights: pd.DataFrame = None, group: dict = None) -> pd.DataFrame:
     
     # default group
     if group == None:
@@ -15,22 +15,25 @@ def allocator_1(df: pd.DataFrame, weights: pd.DataFrame = None, group: dict = No
 
     # if weights not specified then equal weights
     if weights == None:
-        new_weights = df.copy().map(lambda x: 1)
+        new_weights = alpha_df.copy().map(lambda x: 1)
     else:
         new_weights = weights.copy()
     
-    new_df = df.copy()
+    new_df = alpha_df.copy()
 
     # get alpha of each group
     for grouping in group_keys:
-        new_df[grouping] = df.loc[:, group[grouping]].mean(axis = 1)
+        new_df[grouping] = alpha_df.loc[:, group[grouping]].mean(axis = 1)
     
     # set new column 'diff' to +1 if col 0 > col 1 otherwise -1
     new_df['diff'] = (new_df[group_keys[0]] - new_df[group_keys[1]]).apply(lambda x: x if not x else x // abs(x))
 
+    print(new_df['diff'])
+    print(new_weights.loc[:,group[group_keys[0]]])
+    
     # set weights to long/short
-    new_weights.loc[:group[group_keys[0]]] = new_weights.loc[:group[group_keys[0]]] * new_df['diff']
-    new_weights.loc[:group[group_keys[1]]] = new_weights.loc[:group[group_keys[1]]] * (-1) * new_df['diff']
+    new_weights.loc[:,group[group_keys[0]]] = new_weights.loc[:,group[group_keys[0]]].mul(new_df['diff'], axis = 0)
+    new_weights.loc[:,group[group_keys[1]]] = new_weights.loc[:,group[group_keys[1]]].mul((-1) * new_df['diff'], axis = 0)
 
     # neutralise
     new_weights = new_weights.apply(lambda x: x - x.mean(), axis = 1)
