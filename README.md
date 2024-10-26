@@ -22,7 +22,19 @@ P_low = Periods since last Low within the lookback period AL
 
 
 2. Alpha to asset allocation
-Allocation function
+
+WQ  Allocator:
+
+a. Get alpha scores for each day
+b. Neutralise alphas (set average() = 0)
+c. Normalise alphas (set sum(abs()) = 1)
+
+QuantyMacro Allocator:
+
+a. Get average alpha in each basket A, B
+b. If alpha_A > alpha_B, long A short B, else long B short A
+c. Neutralise weights (set average() = 0)
+d. Normalise weights (set sum(abs()) = 1)
 
 
 3. Backtesting
