@@ -2,12 +2,7 @@ import pandas as pd
 import numpy as np
 
 def aroon_alpha_gen(input_df: pd.DataFrame, lag_days: int, up: bool = True) -> pd.DataFrame:
-    # alpha = -(close(today) - close(X_days_ago))/close(X_days_ago)
-    # first column is datetime (index)
-    # subsequent columns are values
-
     # lookback period includes the day itself
-    # direction = 1 for aroon up, -1 for aroon down
 
     # aroon() generates new col from col
     def aroon(series: pd.Series) -> pd.Series:
