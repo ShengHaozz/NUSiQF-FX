@@ -4,6 +4,9 @@ from Alpha_Gen.aroon_indicator_alpha_gen import aroon_alpha_gen
 from Alpha_Gen.mean_rev_1_alpha_gen import mr1_alpha_gen
 from Asset_Alloc.quantymacro_allocator import quantymacro_allocator
 from Asset_Alloc.wq_allocator import wq_allocator
+from typing import Tuple
+import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
 
 LAG_DAYS = 3
 
