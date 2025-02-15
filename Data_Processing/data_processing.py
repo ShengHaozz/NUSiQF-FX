@@ -11,7 +11,7 @@ def get_filtered_dataframe(metric, currencies, convert_currencies, updated_curre
     
     # Populate the DataFrame with data from CSV files for each currency
     for symbol in currencies:
-        data = pd.read_csv(f'{symbol}1440.csv', index_col=0, sep='\t', header=None)
+        data = pd.read_csv(f'Data_Processing/{symbol}1440.csv', index_col=0, sep='\t', header=None)
         fx_dataframe[f'{metric} of {symbol}'] = data.iloc[:, legend[metric]].copy()
 
     # Apply conversion for specific currency pairs if needed
@@ -26,7 +26,7 @@ def get_filtered_dataframe(metric, currencies, convert_currencies, updated_curre
     fx_dataframe.columns = updated_columns
 
     # Filter the DataFrame starting from the specified start date
-    filtered_dataframe = fx_dataframe.loc[start_date:]
+    filtered_dataframe = fx_dataframe.loc[start_date:].copy()
 
     # Forward-fill any missing values
     filtered_dataframe.ffill(inplace=True)
