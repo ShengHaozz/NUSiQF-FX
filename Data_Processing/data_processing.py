@@ -11,6 +11,7 @@ def get_filtered_dataframe(metric, currencies, convert_currencies, updated_curre
     
     # Populate the DataFrame with data from CSV files for each currency
     for symbol in currencies:
+
         data = pd.read_csv(f'Data_Processing/{symbol}1440.csv', index_col=0, sep='\t', header=None)
         fx_dataframe[f'{metric} of {symbol}'] = data.iloc[:, legend[metric]].copy()
 
